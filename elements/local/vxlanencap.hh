@@ -9,7 +9,7 @@ CLICK_DECLS
 // VXLAN encapsulator
 // Supports 2 VXLAN formats:
 // - Basic VXLAN
-// - VXLAN-GPE
+// - VXLAN-GPE (WIP)
 //
 
 class VXLANEncap : public Element { public:
@@ -19,21 +19,15 @@ class VXLANEncap : public Element { public:
 
     const char *class_name() const	{ return "VXLANEncap"; }
     const char *port_count() const	{ return PORTS_1_1; }
+    bool can_live_reconfigure() const   { return true; }
     void add_handlers() CLICK_COLD;
 
     int configure(Vector<String> &, ErrorHandler *) CLICK_COLD;
-    //void add_handlers() CLICK_COLD;
 
     Packet *simple_action(Packet *);
 
   private:
-
   	click_vxlan vxlan;
-    
-
-    //enum { h_vxlan_vnid };
-    //static String read_handler(Element *e, void *user_data) CLICK_COLD;
-
 };
 
 CLICK_ENDDECLS

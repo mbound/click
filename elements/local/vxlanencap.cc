@@ -51,6 +51,7 @@ void
 VXLANEncap::add_handlers()
 {
     add_read_handler("vxlan_vnid", read_keyword_handler, "0 VXLAN_VNID");
+    add_write_handler("vxlan_vnid", reconfigure_keyword_handler, "0 VXLAN_VNID");
     //add_read_handler("vxlan_isgpe", read_keyword_handler, "GPE");
     //add_read_handler("gpe_nextproto", read_keyword_handler, "NEXT");
     //add_read_handler("gpe_isoam", read_keyword_handler, "OAM");

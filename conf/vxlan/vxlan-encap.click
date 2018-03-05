@@ -1,20 +1,15 @@
-// testdevice.click
+// vxlan-encap.click
+//
+//
+// Simple VXLAN encapsulator config, which uses the VXLANEncap element
+// UDP SRC port can be set to a random number
+//
+//
 
-// Tests whether Click can read packets from the network.
-// You may need to modify the device name in FromDevice.
-// You'll probably need to be root to run this.
-
-// Run with
-//    click testdevice.click
-// (runs as a user-level program; uses Linux packet sockets or a similar
-// mechanism), or
-//    click-install testdevice.click
-// (runs inside a Linux kernel).
-
-// If you run this inside the kernel, your kernel's ordinary IP stack
-// will stop getting packets from eth0. This might not be convenient.
-// The Print messages are printed to the system log, which is accessible
-// with 'dmesg' and /var/log/messages. The most recent 2-4K of messages are
-// stored in /click/messages.
-
-RatedSource(GURU, 1, 1000) -> EtherEncap(0x0800, 1:1:1:1:1:1, 2:2:2:2:2:2) -> Print(PacketIn) -> VXLANEncap(0x123456) -> Print (PacketOut) ->  Discard;
+RatedSource(I.Can.Haz.VXLAN.Plz, 1, 1000) 
+	-> EtherEncap(0x0800, 1:1:1:1:1:1, 2:2:2:2:2:2) 
+	-> Print(PacketIn) 
+	-> VXLANEncap(5555) 
+	-> UDPIPEncap(10.99.61.100, 5525, 10.99.55.100, 4789) 
+	-> EtherEncap(0x0800, 3:3:3:3:3:3, 4:4:4:4:4:4) 
+	-> ToDevice(out0)  
