@@ -10,8 +10,6 @@
 // |                VXLAN Network Identifier (VNI) |   Reserved    |
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
-// Define VXLAN-GPE header structure
-//
 // 8-byte VXLAN-GPE header            
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 // |R|R|Ver|I|P|R|O|       Reserved                |Next Protocol  |
@@ -31,17 +29,12 @@
 //		0x5 = MPLS
 
 struct click_vxlan {
-//#if CLICK_BYTE_ORDER == CLICK_BIG_ENDIAN
 	uint8_t vxlan_flags : 8;
     uint32_t vxlan_resv24 : 24;
     uint32_t vxlan_vnid : 24;
     uint8_t vxlan_resv8 : 8;
-/*#elif CLICK_BYTE_ORDER == CLICK_LITTLE_ENDIAN
-	uint8_t vxlan_resv8 : 8;
-	uint32_t vxlan_vnid : 24;
-	uint32_t vxlan_resv24 : 24;
-	uint8_t vxlan_flags : 8;
-#endif */
 } CLICK_SIZE_PACKED_ATTRIBUTE;
+
+static_assert(sizeof(click_vxlan) == 8, "struct click_vxlan is incorrect");
 
 #endif

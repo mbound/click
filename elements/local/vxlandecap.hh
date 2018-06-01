@@ -19,6 +19,7 @@ class VXLANDecap : public Element { public:
 
     const char *class_name() const	{ return "VXLANDecap"; }
     const char *port_count() const	{ return PORTS_1_1; }
+    bool can_live_reconfigure() const   { return true; }
     void add_handlers() CLICK_COLD;
 
     int configure(Vector<String> &, ErrorHandler *) CLICK_COLD;
@@ -26,12 +27,10 @@ class VXLANDecap : public Element { public:
 
     Packet *simple_action(Packet *);
 
- // private:
+private:
 
-  //	click_vxlan vxlan;
-
-    //enum { h_vxlan_vnid };
-    //static String read_handler(Element *e, void *user_data) CLICK_COLD;
+    //bool _anno;
+    uint32_t _vnid;
 
 };
 
